@@ -3,96 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scan to Pay via GCash</title>
+<title>Service Restricted</title>
 
 <style>
-body {
+* {
   margin: 0;
   padding: 0;
-  background: #e6e6e6;
-  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(-45deg, #0f172a, #0b1120, #111827, #0a0f1f);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .container {
-  max-width: 420px;
-  margin: 30px auto;
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  width: 360px;
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(0,0,0,0.6);
   text-align: center;
+  animation: fadeIn 1s ease;
 }
 
-h2 {
-  color: #0d5cc1;
-  font-size: 20px;
-  margin-bottom: 15px;
-  letter-spacing: 1px;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
 }
 
-.qr-box img {
-  width: 230px;
-  max-width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+.logo img {
+  width: 120px;
   margin-bottom: 15px;
 }
 
-.info {
-  font-size: 15px;
-  margin: 8px 0;
-}
-
-.gcash-number {
-  color: #0d5cc1;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.gcash-number:hover {
-  text-decoration: underline;
-}
-
-#copy-msg {
-  font-size: 12px;
-  color: green;
-  display: none;
-  margin-top: 5px;
-}
-
-.notice {
-  font-size: 13px;
-  color: #444;
+.notice-box {
+  background: rgba(255, 0, 0, 0.15);
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
   margin: 15px 0;
 }
 
-.btn {
-  display: block;
+.payment-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.payment-group button {
+  flex: 1;
   padding: 14px;
-  margin: 12px 0;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.gcash-btn { background: #22c55e; }
+.gcash-btn:hover { background: #16a34a; }
+
+.maya-btn { background: #00b14f; }
+.maya-btn:hover { background: #009944; }
+
+.confirm-btn,
+.contact-btn {
+  display: block;
+  padding: 12px;
   border-radius: 10px;
   text-decoration: none;
   color: white;
   font-weight: bold;
-  font-size: 15px;
+  margin-top: 12px;
   transition: 0.3s;
+  cursor: pointer;
 }
 
-.messenger {
-  background: #1877f2;
+.confirm-btn { background: #374151; }
+.confirm-btn:hover { background: #4b5563; }
+
+.contact-btn { background: #0084ff; }
+.contact-btn:hover { background: #006fd6; }
+
+.footer {
+  margin-top: 15px;
+  font-size: 12px;
+  opacity: 0.6;
 }
 
-.messenger:hover {
-  background: #0f5ec4;
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
 }
 
-.call {
-  background: #2e8b57;
+.modal-content {
+  background: #111827;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
+  width: 300px;
+  animation: fadeIn 0.3s ease;
 }
 
-.call:hover {
-  background: #1f6b3f;
+.modal-content img {
+  width: 220px;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.account-info {
+  font-size: 14px;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.account-number {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.copy-btn,
+.option-btn {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+
+.copy-btn { background: #2563eb; }
+.copy-btn:hover { background: #1d4ed8; }
+
+.fb-btn { background: #1877f2; }
+.fb-btn:hover { background: #145dbf; }
+
+.call-btn { background: #16a34a; }
+.call-btn:hover { background: #15803d; }
+
+.text-btn { background: #f59e0b; }
+.text-btn:hover { background: #d97706; }
 </style>
 </head>
 
@@ -100,56 +188,114 @@ h2 {
 
 <div class="container">
 
-  <h2>📲 SCAN TO PAY VIA GCASH</h2>
-
-  <div class="qr-box">
-    <!-- PALITAN MO ITO NG QR IMAGE LINK MO -->
-    <img src="https://i.imgur.com/OEKxpqV.png" alt="GCash QR Code">
+  <div class="logo">
+    <img src="https://i.imgur.com/OZnjpUv.gif" alt="Logo">
   </div>
 
-  <div class="info">
-    GCash Name: <strong>MA***N M.</strong>
+  <h2>Service Temporarily Restricted</h2>
+
+  <div class="notice-box">
+    Your internet service has been temporarily suspended due to an unpaid balance.
+    Please settle your account to restore access.
   </div>
 
-  <div class="info">
-    GCash Number:
-    <span class="gcash-number" onclick="copyNumber()">
-      09665084666
-    </span>
+  <div class="payment-group">
+    <button class="gcash-btn" onclick="openModal('gcash')">💳 GCash</button>
+    <button class="maya-btn" onclick="openModal('maya')">💳 Maya</button>
   </div>
 
-  <div id="copy-msg">✔ Number copied</div>
-
-  <div class="notice">
-    If you have already made a payment, kindly contact us to confirm and reconnect your service.
-  </div>
-
-  <a class="btn messenger"
-     href="https://www.facebook.com/mtechfiberservices"
-     target="_blank">
-     💬 Chat us on Messenger
+  <a href="https://mtechfiberph.com/" target="_blank" class="confirm-btn">
+     ✔ Confirm Payment
   </a>
 
-  <a class="btn call" href="tel:+639241030898">
-     📞 Call us: 0924-103-0898
-  </a>
+  <!-- UPDATED CHAT BUTTON -->
+  <div class="contact-btn" onclick="openContact()">
+     💬 Contact Support
+  </div>
+
+  <div class="footer">
+    © 2026 MTECH Fiber | Secure Access Portal
+  </div>
 
 </div>
 
+<!-- QR MODAL -->
+<div id="qrModal" class="modal" onclick="closeAll()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="close-btn" onclick="closeAll()">✖</span>
+    <h3 id="qrTitle">Scan to Pay</h3>
+    <img id="qrImage" src="" alt="QR Code">
+
+    <div class="account-info">
+      <div><strong>Account Name:</strong></div>
+      <div>MA•••N M.</div>
+
+      <div style="margin-top:10px;"><strong>Account Number:</strong></div>
+      <div id="accNumber" class="account-number">0966-508-4666</div>
+    </div>
+
+    <button class="copy-btn" onclick="copyNumber()">Copy Number</button>
+  </div>
+</div>
+
+<!-- CONTACT OPTIONS MODAL -->
+<div id="contactModal" class="modal" onclick="closeAll()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="close-btn" onclick="closeAll()">✖</span>
+    <h3>Contact Support</h3>
+
+    <button class="option-btn fb-btn"
+      onclick="window.open('https://www.facebook.com/mtechfiberservices','_blank')">
+      💬 Facebook Messenger
+    </button>
+
+    <button class="option-btn call-btn"
+      onclick="window.location.href='tel:09665084666'">
+      📞 Call Now
+    </button>
+
+    <button class="option-btn text-btn"
+      onclick="window.location.href='sms:09665084666'">
+      📩 Send SMS
+    </button>
+
+  </div>
+</div>
+
 <script>
+function openModal(type) {
+  const modal = document.getElementById("qrModal");
+  const qrImage = document.getElementById("qrImage");
+  const qrTitle = document.getElementById("qrTitle");
+
+  if (type === "gcash") {
+    qrImage.src = "https://i.imgur.com/DXGhTbY.png";
+    qrTitle.innerText = "Scan to Pay (GCash)";
+  }
+
+  if (type === "maya") {
+    qrImage.src = "https://i.imgur.com/pakdCyM.png";
+    qrTitle.innerText = "Scan to Pay (Maya)";
+  }
+
+  modal.style.display = "flex";
+}
+
+function openContact() {
+  document.getElementById("contact Modal").style.display = "flex";
+}
+
+function closeAll() {
+  document.getElementById("qrModal").style.display = "none";
+  document.getElementById("contactModal").style.display = "none";
+}
+
 function copyNumber() {
-  const number = "09665084666";
+  const number = document.getElementById("accNumber").innerText;
   navigator.clipboard.writeText(number);
-
-  const msg = document.getElementById("copy-msg");
-  msg.style.display = "block";
-
-  setTimeout(() => {
-    msg.style.display = "none";
-  }, 2000);
+  alert("Number Copied!");
 }
 </script>
 
 </body>
 </html>
-
