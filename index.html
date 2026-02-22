@@ -45,6 +45,13 @@ body {
   margin-bottom: 15px;
 }
 
+h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #e5e7eb;
+}
+
 .notice-box {
   background: rgba(255, 0, 0, 0.15);
   padding: 12px;
@@ -93,23 +100,13 @@ body {
   font-weight: bold;
   margin-top: 15px;
   cursor: pointer;
-  background: #111827;   /* darker solid color */
+  background: #111827;
   color: #e5e7eb;
   transition: 0.3s ease;
 }
 
 .contact-btn:hover {
-  background: #0b1120;   /* mas dark pag hover */
-  color: white;
-} transition: 0.3s ease;
-}
-
-.contact-btn:hover {
-  background: linear-gradient(135deg, #4b5563, #374151);
-}
-
-.contact-btn:hover {
-  background: linear-gradient(135deg, #111827, #0b1120);
+  background: #0b1120;
   color: white;
 }
 
@@ -202,7 +199,7 @@ body {
 <div class="container">
 
   <div class="logo">
-    <img src="mtech.logo1.png">
+    <img src="images/mtech.logo1.png" alt="Logo">
   </div>
 
   <h2>Service Temporarily Restricted</h2>
@@ -250,7 +247,6 @@ body {
 </div>
 
 <script>
-
 function togglePayments() {
   const options = document.getElementById("paymentOptions");
   options.style.display = (options.style.display === "flex") ? "none" : "flex";
@@ -262,12 +258,12 @@ function openQR(type) {
   const qrTitle = document.getElementById("qrTitle");
 
   if (type === "gcash") {
-    qrImage.src = "mtech.spc.gcash.png";
+    qrImage.src = "images/mtech.spc.gcash.png";
     qrTitle.innerText = "Scan to Pay (GCash)";
   }
 
   if (type === "maya") {
-    qrImage.src = "mtech.spc.maya.png";
+    qrImage.src = "images/mtech.spc.maya.png";
     qrTitle.innerText = "Scan to Pay (Maya)";
   }
 
@@ -279,15 +275,8 @@ function openContact() {
 }
 
 function copyNumber(button) {
-  const number = document.getElementById("payNumber").innerText;
-
-  const textarea = document.createElement("textarea");
-  textarea.value = number.replace(/-/g, '');
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand("copy");
-  document.body.removeChild(textarea);
-
+  const number = document.getElementById("payNumber").innerText.replace(/-/g, '');
+  navigator.clipboard.writeText(number);
   button.innerText = "✓ COPIED";
   setTimeout(() => {
     button.innerText = "COPY NUMBER";
@@ -298,7 +287,6 @@ function closeAll() {
   document.getElementById("qrModal").style.display = "none";
   document.getElementById("contactModal").style.display = "none";
 }
-
 </script>
 
 </body>
