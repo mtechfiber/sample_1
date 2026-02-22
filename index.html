@@ -274,9 +274,33 @@ function openContact() {
   document.getElementById("contactModal").style.display = "flex";
 }
 
+// FIXED COPY FUNCTION (with fallback)
 function copyNumber(button) {
   const number = document.getElementById("payNumber").innerText.replace(/-/g, '');
-  navigator.clipboard.writeText(number);
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(number).then(() => {
+      showCopied(button);
+    }).catch(() => {
+      fallbackCopy(number, button);
+    });
+  } else {
+    fallbackCopy(number, button);
+  }
+}
+
+function fallbackCopy(text, button) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  textarea.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+  showCopied(button);
+}
+
+function showCopied(button){
   button.innerText = "✓ COPIED";
   setTimeout(() => {
     button.innerText = "COPY NUMBER";
