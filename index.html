@@ -172,7 +172,7 @@ h2 {
   margin-top: 8px;
 }
 
-/* FIXED OPTION BUTTONS */
+/* OPTION BUTTONS */
 .option-btn {
   margin-top: 12px;
   padding: 12px;
@@ -289,18 +289,51 @@ function openContact() {
   document.getElementById("contactModal").style.display = "flex";
 }
 
+/* UNIVERSAL COPY FUNCTION */
 function copyQRNumber(button) {
   const number = document.getElementById("payNumber").innerText.replace(/-/g, '');
-  navigator.clipboard.writeText(number);
-  button.innerText = "✓ COPIED";
-  setTimeout(() => button.innerText = "COPY NUMBER", 1500);
+  universalCopy(number, button, "COPY NUMBER");
 }
 
 function copyContactNumber(button) {
   const number = "09241030898";
-  navigator.clipboard.writeText(number);
+  universalCopy(number, button, "📋 Copy Number");
+}
+
+function universalCopy(text, button, originalText) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text)
+      .then(() => showCopied(button, originalText))
+      .catch(() => fallbackCopy(text, button, originalText));
+  } else {
+    fallbackCopy(text, button, originalText);
+  }
+}
+
+function fallbackCopy(text, button, originalText) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  try {
+    document.execCommand("copy");
+    showCopied(button, originalText);
+  } catch (err) {
+    alert("Please copy manually: " + text);
+  }
+
+  document.body.removeChild(textarea);
+}
+
+function showCopied(button, originalText) {
   button.innerText = "✓ COPIED";
-  setTimeout(() => button.innerText = "📋 Copy Number", 1500);
+  setTimeout(() => {
+    button.innerText = originalText;
+  }, 1500);
 }
 
 function closeAll() {
