@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Service Restricted</title>
 
-<!-- Favicon -->
 <link rel="icon" type="image/png" href="favicon.png">
-  
+
 <style>
 * {
   margin: 0;
@@ -44,15 +43,15 @@ body {
 }
 
 .logo img {
-  width: 250px;
+  width: 150px;
   margin-bottom: 15px;
 }
 
 h2 {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 750;
   margin-bottom: 10px;
-  color: #e5e7eb;
+  color: #fc2828;
 }
 
 .notice-box {
@@ -70,6 +69,12 @@ h2 {
   margin-top: 15px;
   background: linear-gradient(135deg, #22c55e, #16a34a);
   cursor: pointer;
+}
+
+.footer {
+  font-size: 11px;   /* pwede mo pa liitan to 10px kung gusto mo */
+  margin-top: 18px;
+  opacity: 0.6;
 }
 
 .payment-group {
@@ -98,31 +103,26 @@ h2 {
 
 .contact-btn {
   display: block;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 14px;
+  border-radius: 12px;
   font-weight: bold;
-  margin-top: 15px;
+  margin-top: 18px;
   cursor: pointer;
   background: #111827;
   color: #e5e7eb;
-  transition: 0.3s ease;
+  transition: 0.2s ease;
 }
 
 .contact-btn:hover {
   background: #0b1120;
-}
-
-.footer {
-  margin-top: 15px;
-  font-size: 12px;
-  opacity: 0.6;
+  transform: scale(1.02);
 }
 
 /* MODAL */
 .modal {
   display: none;
   position: fixed;
-  z-index: 999;
+  z-index: 9999;
   left: 0;
   top: 0;
   width: 100%;
@@ -130,77 +130,99 @@ h2 {
   background: rgba(0,0,0,0.85);
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .modal-content {
   background: #111827;
-  padding: 25px;
-  border-radius: 15px;
+  padding: 28px;
+  border-radius: 18px;
   text-align: center;
   position: relative;
-  width: 320px;
+  width: 360px; /* mas wide */
+  animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 .modal-content img {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 12px;
   margin-top: 10px;
 }
 
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 12px;
+  right: 16px;
   font-size: 20px;
   cursor: pointer;
 }
 
 .number-box {
   background: rgba(255,255,255,0.08);
-  padding: 10px;
-  border-radius: 6px;
-  margin-top: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
   font-weight: bold;
 }
 
 .copy-btn {
   background: #22c55e;
   border: none;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 12px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
   color: white;
   width: 100%;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
-/* OPTION BUTTONS */
+/* OPTION BUTTONS (FIXED SIZE) */
 .option-btn {
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 10px;
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 14px;
   width: 100%;
   font-weight: bold;
   border: none;
   cursor: pointer;
   color: white;
+  text-decoration: none;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: none;
-  font-size: 14px;
-  transition: 0.3s ease;
+  gap: 10px;
+  transition: 0.2s ease;
 }
 
-.call-btn, .text-btn {
+.option-btn:hover {
+  transform: scale(1.03);
+}
+
+.call-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.text-btn {
   background: linear-gradient(135deg, #6b7280, #4b5563);
 }
 
-.call-btn:hover,
-.text-btn:hover {
-  transform: scale(1.03);
-  opacity: 0.9;
+.payment-note {
+  font-size: 12px;
+  margin-top: 12px;
+  opacity: 0.8;
+  line-height: 1.4;
 }
 </style>
 </head>
@@ -208,9 +230,8 @@ h2 {
 <body>
 
 <div class="container">
-
   <div class="logo">
-    <img src="logo.gif" alt="Logo">
+    <img src="logo.png" alt="Logo">
   </div>
 
   <h2>Service Temporarily Restricted</h2>
@@ -220,9 +241,7 @@ h2 {
     Please settle your account to restore access.
   </div>
 
-  <div class="pay-now" onclick="togglePayments()">
-    💳 PAY NOW
-  </div>
+  <div class="pay-now" onclick="togglePayments()">💳 PAY NOW</div>
 
   <div class="payment-group" id="paymentOptions">
     <button class="gcash-btn" onclick="openQR('gcash')">GCash</button>
@@ -232,7 +251,6 @@ h2 {
   <div class="contact-btn" onclick="openContact()">💬 Contact Support</div>
 
   <div class="footer">© 2026 (Brand Name) | Secure Access Portal</div>
-
 </div>
 
 <!-- QR MODAL -->
@@ -241,9 +259,16 @@ h2 {
     <span class="close-btn" onclick="closeAll()">✖</span>
     <h3 id="qrTitle">Scan to Pay</h3>
     <img id="qrImage">
-    <div>NAME•</div>
+    <div>Juan Dela Cruz•</div>
     <div class="number-box" id="payNumber">0912-345-6789</div>
     <button class="copy-btn" onclick="copyQRNumber(this)">COPY NUMBER</button>
+
+    <div class="payment-note">
+      Once the payment has been sent, kindly provide the account name and 
+      reference number through Messenger or SMS.
+      <br><br>Facebook: Juan Dela Cruz
+      <br>Phone: 0912-345-6789
+    </div>
   </div>
 </div>
 
@@ -253,14 +278,13 @@ h2 {
     <span class="close-btn" onclick="closeAll()">✖</span>
     <h3>Contact Support</h3>
 
-    <a href="tel:+639241030898" class="option-btn call-btn">
+    <a href="tel:+639123456789" class="option-btn call-btn">
       📞 Call Now
     </a>
 
     <button type="button" class="option-btn text-btn" onclick="copyContactNumber(this)">
       📋 Copy Number
     </button>
-
   </div>
 </div>
 
@@ -271,6 +295,7 @@ function togglePayments() {
 }
 
 function openQR(type) {
+  closeAll();
   const modal = document.getElementById("qrModal");
   const qrImage = document.getElementById("qrImage");
   const qrTitle = document.getElementById("qrTitle");
@@ -289,59 +314,26 @@ function openQR(type) {
 }
 
 function openContact() {
+  closeAll();
   document.getElementById("contactModal").style.display = "flex";
-}
-
-/* UNIVERSAL COPY FUNCTION */
-function copyQRNumber(button) {
-  const number = document.getElementById("payNumber").innerText.replace(/-/g, '');
-  universalCopy(number, button, "COPY NUMBER");
-}
-
-function copyContactNumber(button) {
-  const number = "09123456789";
-  universalCopy(number, button, "📋 Copy Number");
-}
-
-function universalCopy(text, button, originalText) {
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text)
-      .then(() => showCopied(button, originalText))
-      .catch(() => fallbackCopy(text, button, originalText));
-  } else {
-    fallbackCopy(text, button, originalText);
-  }
-}
-
-function fallbackCopy(text, button, originalText) {
-  const textarea = document.createElement("textarea");
-  textarea.value = text;
-  textarea.style.position = "fixed";
-  textarea.style.opacity = "0";
-  document.body.appendChild(textarea);
-  textarea.focus();
-  textarea.select();
-
-  try {
-    document.execCommand("copy");
-    showCopied(button, originalText);
-  } catch (err) {
-    alert("Please copy manually: " + text);
-  }
-
-  document.body.removeChild(textarea);
-}
-
-function showCopied(button, originalText) {
-  button.innerText = "✓ COPIED";
-  setTimeout(() => {
-    button.innerText = originalText;
-  }, 1500);
 }
 
 function closeAll() {
   document.getElementById("qrModal").style.display = "none";
   document.getElementById("contactModal").style.display = "none";
+}
+
+function copyQRNumber(button) {
+  const number = document.getElementById("payNumber").innerText.replace(/-/g, '');
+  navigator.clipboard.writeText(number);
+  button.innerText = "✓ COPIED";
+  setTimeout(() => button.innerText = "COPY NUMBER", 1500);
+}
+
+function copyContactNumber(button) {
+  navigator.clipboard.writeText("09123456789");
+  button.innerText = "✓ COPIED";
+  setTimeout(() => button.innerText = "📋 Copy Number", 1500);
 }
 </script>
 
